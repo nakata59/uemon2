@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2023_04_02_033416) do
+ActiveRecord::Schema.define(version: 2023_04_02_143221) do
 
   create_table "boards", force: :cascade do |t|
     t.string "title"
@@ -19,4 +19,40 @@ ActiveRecord::Schema.define(version: 2023_04_02_033416) do
     t.datetime "updated_at", precision: 6, null: false
   end
 
+  create_table "ches", force: :cascade do |t|
+    t.integer "game_id", null: false
+    t.string "body"
+    t.string "integrity"
+    t.integer "next"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["game_id"], name: "index_ches_on_game_id"
+  end
+
+  create_table "games", force: :cascade do |t|
+    t.text "body"
+    t.integer "flag"
+    t.integer "next"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+  end
+
+  create_table "keeps", force: :cascade do |t|
+    t.integer "udeda_id", null: false
+    t.integer "prog"
+    t.integer "rate"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["udeda_id"], name: "index_keeps_on_udeda_id"
+  end
+
+  create_table "udedas", force: :cascade do |t|
+    t.string "name"
+    t.integer "rate"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+  end
+
+  add_foreign_key "ches", "games"
+  add_foreign_key "keeps", "udedas"
 end

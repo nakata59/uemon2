@@ -1,0 +1,15 @@
+<%= form_with model: @keep ,url: keeps_path,local:true do |f| %>
+    <%= f.text_field :name%>
+    <%= f.hidden_field :udeda_id, value: @udeda.id %>
+  <%= f.submit "最初から遊ぶ" %>
+<% end %>
+
+<% @sas.each do |s| %>
+  <div>
+    <%= form_with model: @udeda,local:true do |f| %>
+      <%= f.hidden_field :rate, value: s.rate %>
+      <%= f.hidden_field :prog, value: s.prog %>
+      <%= f.submit "#{s.rate} #{s.prog} 続きから遊ぶ" %>
+    <% end %>
+  </div>
+<% end %>

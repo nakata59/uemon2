@@ -5,3 +5,15 @@
 #
 #   movies = Movie.create([{ name: 'Star Wars' }, { name: 'Lord of the Rings' }])
 #   Character.create(name: 'Luke', movie: movies.first)
+Game.create!(
+  [
+    {
+        body: "シード1",
+        flag: 0
+    },
+    {
+        body: "シード2",
+        flag: 0
+    }
+  ]
+)

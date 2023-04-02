@@ -1,0 +1,11 @@
+# Read about fixtures at https://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  udeda: one
+  prog: 1
+  rate: 1
+
+two:
+  udeda: two
+  prog: 1
+  rate: 1

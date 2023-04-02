@@ -1,0 +1,207 @@
+<style>
+
+body{
+  margin: 0;
+}
+
+.window{
+  position: relative;
+  background-image: url(<%= asset_path 'IMG_0691.PNG' %>);
+  background-size: 100vw;
+  background-repeat: no-repeat;
+  width: 100vw;
+  height: 45vw;
+}
+<% if request.url =~ %r|games/3| %>
+.window{
+  position: relative;
+  background-image: url(<%= asset_path 'IMG_0684.jpeg' %>);
+  background-size: 100vw;
+  background-repeat: no-repeat;
+  width: 100vw;
+  height: 45vw;
+}
+<% end %>
+ a {
+    text-decoration : none;
+    color : inherit;
+}
+a:hover{
+  text-decoration: none;
+  color : inherit;
+}
+
+.flowing p:nth-of-type(1){
+	font-weight: bold;
+	white-space: nowrap;
+	overflow: hidden;
+	animation: flowing-anim 2s forwards linear;
+    animation-delay: 2.5s;
+    display none; 
+}
+
+.flowing p:nth-of-type(3) {
+    font-weight: bold;
+	white-space: nowrap;
+	overflow: hidden;
+	animation: flowing-anim 2s forwards linear;
+}
+
+
+@keyframes flowing-anim {
+ 0%{
+	 width: 0%;
+   }
+100%{
+	 width: 100%;
+   }
+}
+
+.dialogue{
+  background: rgba(161,208,231,0.9);
+  width: 99vw;
+  height: 10vw;
+  position: absolute;
+  top: 33vw;
+  left: 0.5vw
+}
+
+.parent{
+  position: absolute;
+  top: 13vw;
+}
+
+.choice{
+  background: rgba(161,208,231,0.9);
+  width: 30vw;
+  height: 3vw;
+  margin-bottom: 1vw;
+}
+
+.son{
+  background: rgba(161,208,231,0);
+  border: 0;
+  text-align: center;
+  width: 20vw;
+}
+
+.hide{
+  display: none
+}
+
+.nav{
+  display: block;
+  background: rgba(161,208,231,0.9);
+  width: 6vw;
+}
+
+.savelist{
+  background: rgba(255,255,255,0.9);
+  width: 30vw;
+  position: absolute;
+  top: 5vw;
+  left: 6vw;
+}
+
+.chara{
+  width: 70vw;
+  position: absolute;
+  left: 15vw;
+  top: 2vw;
+}
+
+
+</style>
+<% if @game.next.presence %>
+  <% next_id = @game.next %>
+<% else %>
+  <% next_id = @game.id + 1 %>
+<% end %>
+
+<div class = "window">
+
+<div class = "nav">
+  <div class "butto" onclick="buttoClick()">
+    <p>メニュー</p>
+  </div>
+  <div class = "func hide">
+    <p onclick="buttClick()">SAVE</p>
+    <p>LOAD</p>
+  </div>
+</div>
+
+<% if request.url =~ %r|games/3| %>
+  <div class = "chara", style = 'text-align: center;' >
+    <%= image_tag 'ueda1.png' %>
+  </div>
+<% else %>
+  <div class = "chara", style = 'text-align: right;' >
+    <%= image_tag 'ueda1.png' %>
+  </div>
+<% end %>
+
+<div class = "savelist hide">
+  <% @sas.each do |s| %>
+    <div>
+    <%= form_with url:keep_path,method: :patch, local:true do |f| %>
+      <%= f.hidden_field :rate, value: @udeda.rate %>
+      <% %r|/games/| =~ request.url %>
+      <%= f.hidden_field :prog, value: $' %>
+      <%= f.hidden_field :udeda_id, value: @udeda.id %>
+      <%= f.hidden_field :save_id, value: s.id %>
+      <%= f.submit "#{s.id}  好感度 #{s.rate}" %>
+    <% end %>
+    </div>
+  <% end %>
+</div>
+
+<% if @game.flag == 1 %>
+<div class= "dialogue" onclick="buttonClick()"> 
+<div class = "flowing">
+<%= simple_format(@game.body) %>
+</div>
+</div>
+<% else %>
+<% %r|/games/| =~ request.url %>
+<a href = "<%= $` %>/games/<%= next_id %>" class="dialogue">
+<div class = "flowing">
+  <%= simple_format(@game.body) %>
+</div>
+</a>
+<% end %>
+<% if @game.flag == 1 %>
+  <div class = "parent hide">
+  <% @game.chs.each do |ch|%>
+    <div class= "choice">
+    <%= form_with model: @game, url: [@udeda, @game] ,local:true do |f| %>
+      <% rate = @udeda.rate %>
+      <%= f.hidden_field :ch_id, value: ch.id %>
+      <% if ch.integrity == "T" %>
+       <% rate += 1 %> 
+      <% end %>
+      <%= f.fields_for :udeda do |j| %>
+        <%= j.hidden_field :rate, value: rate %>
+      <% end %>
+        <%= f.submit ch.body, class: "son" %>
+    <% end %>
+    </div>
+  <% end %>
+  </div>
+<% end %>
+</div>
+<script>
+function buttonClick(){
+  let elements = document.getElementsByClassName("parent");
+  elements[0].classList.remove("hide");
+}
+
+function buttoClick(){
+  let elements = document.getElementsByClassName("func");
+  elements[0].classList.toggle("hide");
+}
+
+function buttClick(){
+  let elements = document.getElementsByClassName("savelist");
+  elements[0].classList.toggle("hide");
+}
+</script>

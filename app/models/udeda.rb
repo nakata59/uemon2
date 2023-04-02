@@ -1,0 +1,2 @@
+class Udeda < ApplicationRecord
+end

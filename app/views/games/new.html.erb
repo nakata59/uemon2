@@ -1,0 +1,9 @@
+<h1>ユーザー登録</h1>
+<%= form_with url:udeda_game_path do |f| %>
+  <!--ここはいつも通りの@userのname部分のform-->
+  <%= f.label :body %>
+  <div>
+  <%= f.text_area :body, rows: 5, cols: 100 %>
+  </div>
+  <%= f.submit "登録" %>
+<% end %>
