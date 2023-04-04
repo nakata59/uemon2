@@ -50,7 +50,7 @@
     戻る
   </div>
   <div class = "loadarea">
-  <% @sas.where().each do |s| %>
+  <% @sas.each do |s| %>
     <div>
       <%= form_with model: @udeda,local:true do |f| %>
         <%= f.hidden_field :rate, value: s.rate %>
