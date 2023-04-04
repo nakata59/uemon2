@@ -1,15 +1,73 @@
-<%= form_with model: @keep ,url: keeps_path,local:true do |f| %>
-    <%= f.text_field :name%>
-    <%= f.hidden_field :udeda_id, value: @udeda.id %>
-  <%= f.submit "最初から遊ぶ" %>
-<% end %>
+<style>
+.hide{
+  display: none
+}
 
-<% @sas.each do |s| %>
-  <div>
-    <%= form_with model: @udeda,local:true do |f| %>
-      <%= f.hidden_field :rate, value: s.rate %>
-      <%= f.hidden_field :prog, value: s.prog %>
-      <%= f.submit "#{s.rate} #{s.prog} 続きから遊ぶ" %>
+.loadlist{
+  background: rgba(255,255,255,0.9);
+  width: 100vw;
+  height: 45vw;
+  position: absolute;
+  top: 0vw;
+  left: 0vw;
+  z-index: 10;
+}
+
+.loadarea{
+  background: red;
+  width: 80vw;
+  height: 30vw;
+  position: absolute;
+  top: 10vw;
+  left: 10vw;
+  display: flex;
+  flex-wrap: wrap;
+}
+
+.loadbox{
+  width: 35vw;
+  height: 8vw;
+  background: white;
+  margin: 1vw;
+}
+</style>
+
+<div class = "left", style = "position: absolute; left: 80vw; font-size: 3vw;">
+  <div class = "NewGame">
+    <%= form_with model: @keep ,url: keeps_path,local:true do |f| %>
+    <%= f.hidden_field :udeda_id, value: @udeda.id %>
+      <%= f.submit "New Game", style: "font-size: 3vw; border: none; background: none;" %>
     <% end %>
   </div>
-<% end %>
+  <div class = "Load" onclick="buttonClick()" >
+    Load
+    <%= audio_tag('sound.mp3', id: 'btn_audio') %>
+  </div>
+
+</div>
+<div class = "loadlist hide" >
+  <div onclick="button2Click()" >
+    戻る
+  </div>
+  <div class = "loadarea">
+  <% @sas.where().each do |s| %>
+    <div>
+      <%= form_with model: @udeda,local:true do |f| %>
+        <%= f.hidden_field :rate, value: s.rate %>
+        <%= f.hidden_field :prog, value: s.prog %>
+        <%= f.submit "DATA#{s.id}\n 好感度 #{s.rate}\n#{s.updated_at.strftime('%Y/%m/%d %H:%M')}",class: "loadbox" %>
+      <% end %>
+    </div>
+  <% end %>
+  </div>
+</div>
+
+<script>
+function buttonClick(){
+  let elements = document.getElementsByClassName("loadlist");
+  document.getElementById('btn_audio').currentTime = 0; //連続クリックに対応
+  document.getElementById('btn_audio').play(); //クリックしたら音を再生
+  elements[0].classList.remove("hide");
+}
+</script>
+

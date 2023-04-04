@@ -4,6 +4,8 @@ Rails.application.routes.draw do
     resources :games
   end
 
+  post '/serch/', to: 'udedas#serch'
+
   resources :keeps
   get '/stos/:id', to: 'stos#edit'
   patch '/stos/:id', to: 'stos#update'

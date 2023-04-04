@@ -4,24 +4,27 @@ body{
   margin: 0;
 }
 
+<% request.url =~ %r|games/| %>
+<% if $'.to_i < 22 %>
 .window{
   position: relative;
-  background-image: url(<%= asset_path 'IMG_0691.PNG' %>);
+  background-image: url(<%= asset_path '0403.png' %>);
   background-size: 100vw;
   background-repeat: no-repeat;
   width: 100vw;
   height: 45vw;
 }
-<% if request.url =~ %r|games/3| %>
+<% else %>
 .window{
   position: relative;
-  background-image: url(<%= asset_path 'sample.jpg' %>);
+  background-image: url(<%= asset_path 'suizokukan.jpeg' %>);
   background-size: 100vw;
   background-repeat: no-repeat;
   width: 100vw;
   height: 45vw;
 }
 <% end %>
+
  a {
     text-decoration : none;
     color : inherit;
@@ -29,6 +32,7 @@ body{
 a:hover{
   text-decoration: none;
   color : inherit;
+  background: rgba(161,208,231,0.9);
 }
 
 .flowing p:nth-of-type(1){
@@ -59,7 +63,7 @@ a:hover{
 
 .dialogue{
   background: rgba(161,208,231,0.9);
-  width: 99vw;
+  width: 90vw;
   height: 10vw;
   position: absolute;
   top: 33vw;
@@ -82,34 +86,86 @@ a:hover{
   background: rgba(161,208,231,0);
   border: 0;
   text-align: center;
-  width: 20vw;
+  width: 30vw;
+  height: 3vw;
 }
 
 .hide{
   display: none
 }
 
-.nav{
+.func{
   display: block;
   background: rgba(161,208,231,0.9);
   width: 6vw;
+  height: 10vw;
+  position: absolute;
+  left: 93vw;
+  top: 33vw;
 }
 
 .savelist{
   background: rgba(255,255,255,0.9);
-  width: 30vw;
+  width: 100vw;
+  height: 45vw;
   position: absolute;
-  top: 5vw;
-  left: 6vw;
+  top: 0vw;
+  left: 0vw;
+  z-index: 10;
+}
+
+.fade{
+  animation-name:fadeInAnime;
+  animation-duration:0.5s;
+  animation-fill-mode:forwards;
+  opacity:0;
+  }
+
+  @keyframes fadeInAnime{
+    0% {opacity:0;}
+
+  100%{opacity:1;}
+}
+
+#back{
+  position: absolute;
+  left: 90vw;
+  top: 3vw;
+}
+
+.saveboxarea{
+  background: red;
+  width: 80vw;
+  height: 30vw;
+  position: absolute;
+  top: 10vw;
+  left: 10vw;
+  display: flex;
+  flex-wrap: wrap;
+}
+
+.savebox{
+  width: 35vw;
+  height: 8vw;
+  background: white;
+  margin: 1vw;
 }
 
 .chara{
   width: 70vw;
+  height: 30vw;
   position: absolute;
   left: 15vw;
   top: 2vw;
 }
 
+.speaker{
+  background: rgba(161,208,231,0.9);
+  width: 10vw;
+  position: absolute;
+  top: 30vw;
+  left: 0.5vw
+}
 
 </style>
 <% if @game.next.presence %>
@@ -119,41 +175,46 @@ a:hover{
 <% end %>
 
 <div class = "window">
-
-
-
-  <div class = "nav">
-  <div class "butto" onclick="buttoClick()">
-    <p>メニュー</p>
-  </div>
-  <div class = "func hide">
+  <div class = "func">
     <p onclick="buttClick()">SAVE</p>
+    <%= audio_tag('sound.mp3', id: 'btn_audio') %>
     <p>LOAD</p>
   </div>
-</div>
 
-<% if request.url =~ %r|games/3| %>
+  <% if request.url =~ %r|games/3| %>
   <div class = "chara", style = 'text-align: center;' >
-    <%= image_tag 'ueda1.png' %>
+    <%= image_tag 'ueda1.png', style: 'height: 43vw;'  %>
   </div>
 <% else %>
   <div class = "chara", style = 'text-align: right;' >
-    <%= image_tag 'ueda1.png' %>
+    <%= image_tag 'ueda1.png', style: 'height: 43vw;' %>
   </div>
 <% end %>
 
 <div class = "savelist hide">
-  <% @sas.each do |s| %>
-    <div>
-    <%= form_with url:keep_path,method: :patch, local:true do |f| %>
-      <%= f.hidden_field :rate, value: @udeda.rate %>
-      <% %r|/games/| =~ request.url %>
-      <%= f.hidden_field :prog, value: $' %>
-      <%= f.hidden_field :udeda_id, value: @udeda.id %>
-      <%= f.hidden_field :save_id, value: s.id %>
-      <%= f.submit "#{s.id}  好感度 #{s.rate}" %>
+   <div id = "back" onclick="button8Click()" >
+    戻る
+    <%= audio_tag('sound2.mp3', id: 'btn_audio2') %>
+   </div>
+   <div class = "saveboxarea">
+    <% @sas.each do |s| %>
+        <%= form_with url:keep_path,method: :patch, local:true do |f| %>
+          <%= f.hidden_field :rate, value: @udeda.rate %>
+          <% %r|/games/| =~ request.url %>
+          <%= f.hidden_field :prog, value: $' %>
+          <%= f.hidden_field :udeda_id, value: @udeda.id %>
+          <%= f.hidden_field :save_id, value: s.id %>
+          <%= f.submit "DATA#{s.id}\n 好感度 #{s.rate}\n#{s.updated_at.strftime('%Y/%m/%d %H:%M')}",class: "savebox" %>
+        <% end %>
     <% end %>
-    </div>
+  </div>
+</div>
+
+<div class = "speaker">
+  <% if @game.speaker.to_i == 1 %>
+    ウエダカズキ
+  <% else %>
+    <%= @udeda.name %>
   <% end %>
 </div>
 
@@ -167,13 +228,19 @@ a:hover{
 <% %r|/games/| =~ request.url %>
 <a href = "<%= $` %>/games/<%= next_id %>" class="dialogue">
 <div class = "flowing">
-  <%= simple_format(@game.body) %>
+  <% if /username/ ===  @game.body%>
+   <% @username_text = @game.body.gsub(/username/,@udeda.name) %>
+   <%= simple_format(@username_text) %>
+  <% else %>
+    <%= simple_format(@game.body) %>
+  <% end %>
 </div>
 </a>
 <% end %>
+
 <% if @game.flag == 1 %>
   <div class = "parent hide">
-  <% @game.chs.each do |ch|%>
+  <% @chs.where(game_id: @game.id).each do |ch|%>
     <div class= "choice">
     <%= form_with model: @game, url: [@udeda, @game] ,local:true do |f| %>
       <% rate = @udeda.rate %>
@@ -204,6 +271,17 @@ function buttoClick(){
 
 function buttClick(){
   let elements = document.getElementsByClassName("savelist");
+  document.getElementById('btn_audio').currentTime = 0; //連続クリックに対応
+  document.getElementById('btn_audio').play(); //クリックしたら音を再生
   elements[0].classList.toggle("hide");
+  elements[0].classList.toggle("fade");
+}
+
+function button8Click(){
+  let elements = document.getElementsByClassName("savelist");
+  document.getElementById('btn_audio2').currentTime = 0; //連続クリックに対応
+  document.getElementById('btn_audio2').play(); //クリックしたら音を再生
+  elements[0].classList.add("hide");
+  elements[0].classList.remove("fade");
 }
 </script>

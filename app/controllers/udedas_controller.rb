@@ -3,6 +3,10 @@ class UdedasController < ApplicationController
   def index
   end
 
+  def new
+    @udeda = Udeda.new
+  end
+
   def show
     @udeda = Udeda.find(params[:id])
     @sas = Keep.where(udeda_id: @udeda.id)
@@ -12,12 +16,19 @@ class UdedasController < ApplicationController
   end
 
   def create
-    @game = Game.find(7)
-    if @udeda.save
-      params.each do |key, value|
-        udeda = Udeda.find(1)
-        partner.update(rate: value)
+    if params[:keyword].eql?("ウエダ")
+      @udeda = Udeda.create(udeda_params)
+      if @udeda.save
+        6.times do
+          Keep.create(udeda_id: @udeda.id)
+        end
+        redirect_to @udeda
+      else
+        ender :new
       end
+    else
+      flash[:alert] = "キーワードが間違っています"
+      render :new
     end
   end
 
@@ -29,9 +40,19 @@ class UdedasController < ApplicationController
     end
   end
 
+  def serch
+    if Udeda.where(name: params[:name]).exists? && params[:keyword].eql?("ウエダ")
+      @udeda = Udeda.find_by(name: params[:name])
+      redirect_to @udeda
+    else
+      flash[:alert] = "入力情報に誤りがあります"
+      render :new
+   end
+  end
+  
   private
 
   def udeda_params
-    params.require(:udeda).permit(:rate)
+    params.permit(:rate,:name)
   end
 end

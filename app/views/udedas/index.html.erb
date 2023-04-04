@@ -1,2 +1,9 @@
 <h1>Udedas#index</h1>
 <p>Find me in app/views/udedas/index.html.erb</p>
+<%= form_with model: @udeda,local:true do |f| %>
+    <%= f.label :name %>
+    <%= f.text_field :name %>
+    <%= f.label :keyword %>
+    <%= f.text_field :keyword %>
+    <%= f.submit "プレイヤー登録する" %>
+<% end %>
