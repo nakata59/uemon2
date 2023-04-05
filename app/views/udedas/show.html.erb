@@ -1,4 +1,13 @@
 <style>
+.window{
+  position: relative;
+  background-image: url(<%= asset_path '0405.jpg' %>);
+  background-size: 100vw;
+  background-repeat: no-repeat;
+  width: 100vw;
+  height: 45vw;
+  margin: 0;
+  }
 .hide{
   display: none
 }
@@ -31,23 +40,27 @@
   margin: 1vw;
 }
 </style>
-
-<div class = "left", style = "position: absolute; left: 80vw; font-size: 3vw;">
+<div class = "window">
+  <div class = "right">
+  <%= image_tag 'Original4.png', style: 'height: 25vw; position: absolute; top: 15vw; left: 5vw;' %>
+  </div>
+<div class = "left", style = "position: absolute; left: 70vw; top: 5vw; font-size: 3vw;">
   <div class = "NewGame">
     <%= form_with model: @keep ,url: keeps_path,local:true do |f| %>
     <%= f.hidden_field :udeda_id, value: @udeda.id %>
-      <%= f.submit "New Game", style: "font-size: 3vw; border: none; background: none;" %>
+      <%= f.submit "New Game", style: "font-size: 3vw; border: none; background: none; color: white;" %>
     <% end %>
   </div>
   <div class = "Load" onclick="buttonClick()" >
-    Load
+    <p style = "color: white; font-size: 3vw;">Load</p>
     <%= audio_tag('sound.mp3', id: 'btn_audio') %>
   </div>
 
 </div>
 <div class = "loadlist hide" >
-  <div onclick="button2Click()" >
-    戻る
+  <div style = "position: absolute; left: 80vw;" onclick="button2Click()" >
+    <p>戻る</p>
+    <%= audio_tag('sound2.mp3', id: 'btn_audio2') %>
   </div>
   <div class = "loadarea">
   <% @sas.each do |s| %>
@@ -55,11 +68,18 @@
       <%= form_with model: @udeda,local:true do |f| %>
         <%= f.hidden_field :rate, value: s.rate %>
         <%= f.hidden_field :prog, value: s.prog %>
-        <%= f.submit "DATA#{s.id}\n 好感度 #{s.rate}\n#{s.updated_at.strftime('%Y/%m/%d %H:%M')}",class: "loadbox" %>
+        <% if s.prog == nil %>
+          <div class = "loadbox", style = "text-align: center;">
+           <p>NO DATA</p>
+          </div>
+        <% else %>
+          <%= f.submit "DATA#{s.id}\n 好感度 #{s.rate}\n#{s.updated_at.strftime('%Y/%m/%d %H:%M')}",class: "loadbox", onclick: "buttonClick()"%>
+        <% end %>
       <% end %>
     </div>
   <% end %>
   </div>
+</div>
 </div>
 
 <script>
@@ -68,6 +88,13 @@ function buttonClick(){
   document.getElementById('btn_audio').currentTime = 0; //連続クリックに対応
   document.getElementById('btn_audio').play(); //クリックしたら音を再生
   elements[0].classList.remove("hide");
+}
+
+function button2Click(){
+  let elements = document.getElementsByClassName("loadlist");
+  document.getElementById('btn_audio2').currentTime = 0; //連続クリックに対応
+  document.getElementById('btn_audio2').play(); //クリックしたら音を再生
+  elements[0].classList.add("hide");
 }
 </script>
 

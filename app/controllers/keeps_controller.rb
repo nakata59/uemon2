@@ -9,13 +9,7 @@ class KeepsController < ApplicationController
   def create
     @udeda = Udeda.find(params[:udeda_id])
     @udeda.update(rate: 0)
-    @keep = Keep.new(keep_params)
-
-    if @keep.save
-      redirect_to udeda_game_path(@keep.udeda,Game.find(1))
-    else
-      redirect_to udeda_path(@keep.udeda)
-    end
+    redirect_to udeda_game_path(@udeda,Game.find(1))
   end
 
   def show

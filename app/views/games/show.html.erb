@@ -5,7 +5,16 @@ body{
 }
 
 <% request.url =~ %r|games/| %>
-<% if $'.to_i < 22 %>
+<% if $'.to_i < 14 %>
+.window{
+  position: relative;
+  background-image: url(<%= asset_path '0407.jpg' %>);
+  background-size: 100vw;
+  background-repeat: no-repeat;
+  width: 100vw;
+  height: 45vw;
+}
+<% elsif $'.to_i < 39%>
 .window{
   position: relative;
   background-image: url(<%= asset_path '0403.png' %>);
@@ -35,22 +44,31 @@ a:hover{
   background: rgba(161,208,231,0.9);
 }
 
-.flowing p:nth-of-type(1){
-	font-weight: bold;
-	white-space: nowrap;
-	overflow: hidden;
-	animation: flowing-anim 2s forwards linear;
-    animation-delay: 2.5s;
-    display none; 
+.flowing span:nth-of-type(1){
+  display: block;
+  height: 1rem;
+  
+  overflow: hidden;
+	animation: flowing-anim 3s forwards linear;
 }
 
-.flowing p:nth-of-type(3) {
-    font-weight: bold;
-	white-space: nowrap;
-	overflow: hidden;
-	animation: flowing-anim 2s forwards linear;
+.flowing span:nth-of-type(2){
+  display: block;
+  height: 1rem;
+  width: 0;
+  overflow: hidden;
+	animation: flowing-anim 3s forwards linear;
+  animation-delay: 2s;
 }
 
+.flowing span:nth-of-type(3){
+  display: block;
+  height: 1rem;
+  width: 0;
+  overflow: hidden;
+	animation: flowing-anim 3s forwards linear;
+  animation-delay: 4s;
+}
 
 @keyframes flowing-anim {
  0%{
@@ -60,6 +78,8 @@ a:hover{
 	 width: 100%;
    }
 }
+
+
 
 .dialogue{
   background: rgba(161,208,231,0.9);
@@ -104,6 +124,41 @@ a:hover{
   top: 33vw;
 }
 
+<% if @game.flag == 3 %>
+.curtain{
+  animation-name:transInAnime;
+  animation-fill-mode:forwards;
+  animation-duration:1.5s;
+  }
+
+  @keyframes transInAnime{
+    0% {width:0;}
+
+  60% {width:100vw;
+       opacity:1;}
+
+  70% {opacity:0;
+      width:100vw;
+      height:45vw;
+      display:none;}
+  
+  100% {width:0vw;
+        height:0vw;
+        opacity:0;}
+}
+
+
+.trans{
+  position: absolute;
+  top:0;
+  left: 0;
+  width: 100vw;
+  height: 45vw;
+  background-color: black;
+  z-index: 0;
+}
+
+<% end %>
 .savelist{
   background: rgba(255,255,255,0.9);
   width: 100vw;
@@ -210,13 +265,22 @@ a:hover{
   </div>
 </div>
 
-<div class = "speaker">
-  <% if @game.speaker.to_i == 1 %>
-    ウエダカズキ
+<% case @game.speaker %>
+  <% when "1" then %>
+    <div class = "speaker">
+      ウエダカズキ
+    </div>
+  <% when "2" then %>
+    <div class = "speaker">
+      <%= @udeda.name %>
+    </div>
+  <% when "0" then %>
   <% else %>
-    <%= @udeda.name %>
-  <% end %>
-</div>
+    <div class = "speaker">
+      <%= @game.speaker %>
+    </div>
+<% end %>
+
 
 <% if @game.flag == 1 %>
 <div class= "dialogue" onclick="buttonClick()"> 
@@ -257,6 +321,9 @@ a:hover{
   <% end %>
   </div>
 <% end %>
+
+</div>
+<div class = "trans curtain">
 </div>
 <script>
 function buttonClick(){
