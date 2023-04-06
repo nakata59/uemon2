@@ -11,6 +11,6 @@ Rails.application.routes.draw do
   patch '/stos/:id', to: 'stos#update'
 
   resources :boards
-  root 'boards#index'
+  root 'udedas#new'
   # For details on the DSL available within this file, see https://guides.rubyonrails.org/routing.html
 end

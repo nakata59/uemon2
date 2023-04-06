@@ -368,6 +368,7 @@ Game.create!(
         body: "<span>彼の後ろ姿を見送りながら、どこか寂しい気持ちになった。</span>",
         flag: 0,
         speaker: 2,
+        next: 72,
         id: 57
     },
     {
@@ -429,12 +430,41 @@ Game.create!(
     {
         body: "<span>「ここから見る景色はめっちゃ綺麗やな</span>
                <span>でもそれ以上にusernameと過ごす時間は俺にとって一番大切な時間なんや</span>
-               <span>だから、ちょっと勇気を出して言うてみるわ</span>」",
+               <span>だから、ちょっと勇気を出して言うてみるわ」</span>",
         flag: 5,
         speaker: 1,
         id: 67
-    }
-    
+    },
+    {
+        body: "<span>お前のことが好きや</span>
+               <span>これからもこの景色を一緒に見たいと思っとる</span>
+                <span>だからもしよかったら、俺と付き合ってくれへんか</span>",
+        flag: 5,
+        speaker: 1,
+        id: 68
+    },
+    {
+        body: "<span>心臓が高鳴り、言葉が出てこない</span>",
+        flag: 0,
+        speaker: 2,
+        id: 69
+    },
+    {
+        body: "<span>「私も、あなたのことが好きです」</span>",
+        flag: 0,
+        speaker: 2,
+        id: 70
+    },
+    {
+        body: "<span>彼は嬉しそうに笑い、私を抱きしめた。その温かさに包まれながら、心の中で幸せを噛みしめていた</span>",
+        flag: 0,
+        speaker: 2,
+        id: 71
+    },
+    {
+        flag: 6,
+        id: 72
+    },
     
 
 

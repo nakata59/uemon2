@@ -23,10 +23,20 @@ body{
   width: 100vw;
   height: 45vw;
 }
-<% else %>
+<% elsif $'.to_i < 64 %>
 .window{
   position: relative;
   background-image: url(<%= asset_path '0404.jpg' %>);
+  background-size: 100vw;
+  background-repeat: no-repeat;
+  width: 100vw;
+  height: 45vw;
+}
+
+<% else %>
+.window{
+  position: relative;
+  background-image: url(<%= asset_path '0405.jpg' %>);
   background-size: 100vw;
   background-repeat: no-repeat;
   width: 100vw;
@@ -229,6 +239,12 @@ a:hover{
   <% next_id = @game.id + 1 %>
 <% end %>
 
+<% if @game.flag == 6 %>
+ <h1>Thanks for playing</h1>
+ <% request.url =~ %r|/games/| %>
+ <a href = "<%= $` %>">タイトルへ戻る</a>
+<% else %>
+
 <div class = "window">
   <div class = "func">
     <p onclick="buttClick()">SAVE</p>
@@ -300,12 +316,21 @@ a:hover{
   <% %r|/games/| =~ request.url %>
   <div class = "dialogue beforebox" onclick="button9Click()">
     <div class = "flowing" >
-    <p><span>やがて彼は口を開いて囁いた</span></p>
+    <% if @game.id == 67 %>
+      <p><span>やがて彼は口を開いて囁いた</span></p>
+    <% else %>
+      <p><span>彼は続ける</span></p>
+    <% end %>
     </div>
   </div>
   <a href = "<%= $` %>/games/<%= next_id %>" class="dialogue afterbox hide">
     <div class = "flowing" >
-      <%= simple_format(@game.body) %>
+    <% if /username/ ===  @game.body%>
+    <% @username_text = @game.body.gsub(/username/,@udeda.name) %>
+    <%= simple_format(@username_text) %>
+   <% else %>
+     <%= simple_format(@game.body) %>
+   <% end %>
     </div>
   </a> 
 <% else %>
@@ -345,6 +370,7 @@ a:hover{
 </div>
 <div class = "trans curtain">
 </div>
+<% end %>
 <script>
 
 
