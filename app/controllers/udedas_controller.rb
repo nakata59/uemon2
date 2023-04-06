@@ -16,7 +16,7 @@ class UdedasController < ApplicationController
   end
 
   def create
-    if params[:keyword].to_i.eql?(111)
+    if params[:keyword].eql?(111)
       @udeda = Udeda.create(udeda_params)
       if @udeda.save
         6.times do
