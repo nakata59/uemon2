@@ -252,14 +252,15 @@ a:hover{
     <p>LOAD</p>
   </div>
 
-  <% if request.url =~ %r|games/3| %>
+  <% if @game.chra == 1 %>
   <div class = "chara", style = 'text-align: center;' >
     <%= image_tag 'ueda1.png', style: 'height: 43vw;'  %>
   </div>
-<% else %>
+<% elsif @game.chra == 2 %>
   <div class = "chara", style = 'text-align: right;' >
-    <%= image_tag 'ueda1.png', style: 'height: 43vw;' %>
+    <%= image_tag 'ueda3.png', style: 'height: 43vw;' %>
   </div>
+<% else %>
 <% end %>
 
 <div class = "savelist hide">
