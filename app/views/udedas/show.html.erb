@@ -48,7 +48,8 @@
   <div class = "NewGame">
     <%= form_with model: @keep ,url: keeps_path,local:true do |f| %>
     <%= f.hidden_field :udeda_id, value: @udeda.id %>
-      <%= f.submit "New Game", style: "font-size: 3vw; border: none; background: none; color: white;" %>
+    <%= f.hidden_field :rate, value: 0 %>
+    <%= f.submit "New Game", style: "font-size: 3vw; border: none; background: none; color: white;" %>
     <% end %>
   </div>
   <div class = "Load" onclick="buttonClick()" >

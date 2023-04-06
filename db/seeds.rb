@@ -328,10 +328,115 @@ Game.create!(
     },
     {
         body: "<span>こうして少し間違った水族館の楽しみ方をして時間を過ごしたのだった</span>",
-        flag: 0,
+        flag: 4,
         speaker: 0,
         id: 51
+    },
+    {
+        body: "<span>時刻19時過ぎ...</span>",
+        flag: 3,
+        speaker: 0,
+        id: 52
+    },
+    {
+        body: "<span>「もうこんな時間か、今日はまあそうやな</span>
+        <span>今日はそろそろ帰りましょうか」</span>",
+        flag: 0,
+        speaker: 1,
+        id: 53
+    },
+    {
+        body: "<span>「あ、そうなんですか？」</span>",
+        flag: 0,
+        speaker: 2,
+        id: 54
+    },
+    {
+        body: "<span>「ああ、そや。まあ、ホンマに楽しかったで。せやけどな、ええかげん帰らな</span>
+        <span>また、機会があったら、ホンマに嬉しいわ。今日はありがとうな」</span>",
+        flag: 0,
+        speaker: 1,
+        id: 55
+    },
+    {
+        body: "<span>「そうですか、じゃあ帰りましょうか」</span>",
+        flag: 0,
+        speaker: 2,
+        id: 56
+    },
+    {
+        body: "<span>彼の後ろ姿を見送りながら、どこか寂しい気持ちになった。</span>",
+        flag: 0,
+        speaker: 2,
+        id: 57
+    },
+    {
+        body: "<span>時刻19時過ぎ...</span>",
+        flag: 3,
+        speaker: 0,
+        id: 58
+    },
+    {
+        body: "<span>「結構ええ時間ですね」</span>",
+        flag: 0,
+        speaker: 1,
+        id: 59
+    },
+    {
+        body: "<span>「こん後どうしましょう？」</span>",
+        flag: 0,
+        speaker: 2,
+        id: 60
+    },
+    {
+        body: "<span>「usernameさん,いやusername
+        もう一箇所だけ付き合ってくれへんか？」</span>",
+        flag: 0,
+        speaker: 2,
+        id: 61
+    },
+    {
+        body: "<span>(彼の表情は真剣だ)</span>",
+        flag: 0,
+        speaker: 2,
+        id: 62
+    },
+    {
+        body: "<span>「喜んで」</span>",
+        flag: 0,
+        speaker: 2,
+        id: 63
+    },
+    {
+        body: "<span>ウエダに連れられてきたのはとある展望台だった</span>",
+        flag: 3,
+        speaker: 0,
+        id: 64
+    },
+    {
+        body: "<span>綺麗な夜景ですね!</span>",
+        flag: 0,
+        speaker: 2,
+        id: 65
+    },
+    {
+        body: "<span>彼からの反応はない</span>
+        <span>真剣な表情な表情をしている</span>",
+        flag: 0,
+        speaker: 2,
+        id: 66
+    },
+    {
+        body: "<span>「ここから見る景色はめっちゃ綺麗やな</span>
+               <span>でもそれ以上にusernameと過ごす時間は俺にとって一番大切な時間なんや</span>
+               <span>だから、ちょっと勇気を出して言うてみるわ</span>」",
+        flag: 5,
+        speaker: 1,
+        id: 67
     }
+    
+    
+
 
     
   ]
