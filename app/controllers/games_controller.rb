@@ -7,7 +7,7 @@ class GamesController < ApplicationController
     @game = Game.find(params[:id])
     @chs = Ch.all
     @udeda = Udeda.find(params[:udeda_id])
-    @sas = Keep.where(udeda_id: @udeda.id)
+    @sas = Keep.where(udeda_id: @udeda.id).order("id")
   end
 
   def new

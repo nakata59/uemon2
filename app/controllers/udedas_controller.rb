@@ -9,7 +9,7 @@ class UdedasController < ApplicationController
 
   def show
     @udeda = Udeda.find(params[:id])
-    @sas = Keep.where(udeda_id: @udeda.id)
+    @sas = Keep.where(udeda_id: @udeda.id).order("id")
   end
 
   def edit
