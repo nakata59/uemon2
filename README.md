@@ -1,24 +1,31 @@
 # README
 
-This README would normally document whatever steps are necessary to get the
-application up and running.
+## サービス名: ウエメモリー
 
-Things you may want to cover:
+## 操作説明:　
+### ユーザー登録画面
+ルートディレクトリは簡易的なユーザ登録画面です。
+![screenshot](https://user-images.githubusercontent.com/112907406/230546258-a8db0e88-d19f-470d-985d-22eccaecb837.jpg)
+ ユーザー登録したことない方は上の方のフォームに名前を入力し、キーワードは「416」と入力してください。
+ *入力した名前はゲーム画面に反映されます。
+ 正常に登録が完了するとタイトル画面のよう画面に遷移します。
+ 
+ ユーザー登録したことある方は下の方のフォームに名前とキーワードは「416」と入力するとタイトル画面に遷移します。
+ 
+ ### タイトル画面
 
-* Ruby version
+![scsho3](https://user-images.githubusercontent.com/112907406/230549462-ef19e2a3-b22f-4f0c-8408-03480bf8462f.jpg)　　
 
-* System dependencies
+NewGameをクリックすると最初からゲームを開始できます。Save機能を使ったことのない方はこちらをクリックしてゲームを開始してください。　　
 
-* Configuration
+Loadは以前セーブしたデータの好感度と進捗を引き継いでゲームを再開できます。
 
-* Database creation
+### ゲーム画面  
 
-* Database initialization
+![screenshhot5](https://user-images.githubusercontent.com/112907406/230554665-4c750689-c214-431b-b36f-34a9f0ffb609.jpg)
 
-* How to run the test suite
+セリフボックスをクリックすると次のセリフ進みます.
 
-* Services (job queues, cache servers, search engines, etc.)
+Saveをクリックするとセーブ機能を使用できます。セーブ機能では進捗と好感度を記録することができます。セーブが完了するとタイトル画面に戻ります。
 
-* Deployment instructions
-
-* ...
+Statusをクリックすると現在の好感度を確認することができます。
