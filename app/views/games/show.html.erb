@@ -272,7 +272,7 @@ a:hover{
     <%= audio_tag('sound2.mp3', id: 'btn_audio2') %>
    </div>
    <div class = "saveboxarea">
-    <% @sas.each do |s| %>
+    <% @sas.each.with_index(1) do |s, i| %>
         <%= form_with url:keep_path,method: :patch, local:true do |f| %>
           <%= f.hidden_field :rate, value: @udeda.rate %>
           <% %r|/games/| =~ request.url %>
@@ -280,7 +280,7 @@ a:hover{
           <%= f.hidden_field :udeda_id, value: @udeda.id %>
           <%= f.hidden_field :save_id, value: s.id %>
           <%  savetime = s.updated_at + 9*60*60 %>
-          <%= f.submit "DATA#{s.id}\n 好感度 #{s.rate}\n#{savetime.strftime('%Y/%m/%d %H:%M')}",class: "savebox" %>
+          <%= f.submit "DATA#{i}\n 好感度 #{s.rate}\n#{savetime.strftime('%Y/%m/%d %H:%M')}",class: "savebox" %>
         <% end %>
     <% end %>
   </div>
