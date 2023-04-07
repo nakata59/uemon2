@@ -74,7 +74,8 @@
            <p>NO DATA</p>
           </div>
         <% else %>
-          <%= f.submit "DATA#{s.id}\n 好感度 #{s.rate}\n#{s.updated_at.strftime('%Y/%m/%d %H:%M')}",class: "loadbox", onclick: "buttonClick()"%>
+        <%  loadtime = s.updated_at + 9*60*60 %>
+          <%= f.submit "DATA#{s.id}\n 好感度 #{s.rate}\n#{loadtime.strftime('%Y/%m/%d %H:%M')}",class: "loadbox", onclick: "buttonClick()"%>
         <% end %>
       <% end %>
     </div>

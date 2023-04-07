@@ -279,7 +279,8 @@ a:hover{
           <%= f.hidden_field :prog, value: $' %>
           <%= f.hidden_field :udeda_id, value: @udeda.id %>
           <%= f.hidden_field :save_id, value: s.id %>
-          <%= f.submit "DATA#{s.id}\n 好感度 #{s.rate}\n#{s.updated_at.strftime('%Y/%m/%d %H:%M')}",class: "savebox" %>
+          <%  savetime = s.updated_at + 9*60*60 %>
+          <%= f.submit "DATA#{s.id}\n 好感度 #{s.rate}\n#{savetime.strftime('%Y/%m/%d %H:%M')}",class: "savebox" %>
         <% end %>
     <% end %>
   </div>
