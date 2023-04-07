@@ -65,20 +65,20 @@
   </div>
   <div class = "loadarea">
   <% @sas.each do |s| %>
-    <div>
-      <%= form_with model: @udeda,local:true do |f| %>
-        <%= f.hidden_field :rate, value: s.rate %>
-        <%= f.hidden_field :prog, value: s.prog %>
-        <% if s.prog == nil %>
-          <div class = "loadbox", style = "text-align: center;">
-           <p>NO DATA</p>
-          </div>
-        <% else %>
-        <%  loadtime = s.updated_at + 9*60*60 %>
+    <% if s.prog != nil %>
+      <div>
+        <%= form_with model: @udeda,local:true do |f| %>
+          <%= f.hidden_field :rate, value: s.rate %>
+          <%= f.hidden_field :prog, value: s.prog %>
+          <%  loadtime = s.updated_at + 9*60*60 %>
           <%= f.submit "DATA#{s.id}\n 好感度 #{s.rate}\n#{loadtime.strftime('%Y/%m/%d %H:%M')}",class: "loadbox", onclick: "buttonClick()"%>
         <% end %>
-      <% end %>
-    </div>
+      </div>
+    <% else %>
+      <div class = "loadbox", style = "text-align: center;">
+        <p>NO DATA</p>
+      </div>
+    <% end %>
   <% end %>
   </div>
 </div>
