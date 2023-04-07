@@ -16,7 +16,7 @@ class UdedasController < ApplicationController
   end
 
   def create
-    if params[:keyword].eql?(111)
+    if params[:keyword].to_i.eql?(416)
       @udeda = Udeda.create(udeda_params)
       if @udeda.save
         6.times do
@@ -26,7 +26,7 @@ class UdedasController < ApplicationController
       else
         ender :new
       end
-    elsif params[:udeda][:keyword].to_i.eql?(111)
+    elsif params[:udeda][:keyword].to_i.eql?(416)
       @udeda = Udeda.create(name: params[:udeda][:name], rate: 0)
       if @udeda.save
         6.times do
@@ -49,11 +49,11 @@ class UdedasController < ApplicationController
   end
 
   def serch
-    if Udeda.where(name: params[:name]).exists? && params[:keyword].to_i.eql?(111)
+    if Udeda.where(name: params[:name]).exists? && params[:keyword].to_i.eql?(416)
       @udeda = Udeda.find_by(name: params[:name])
       redirect_to @udeda
     elsif params[:udeda] != nil
-       if Udeda.where(name: params[:udeda][:name]).exists? && params[:udeda][:keyword].to_i.eql?(111)
+       if Udeda.where(name: params[:udeda][:name]).exists? && params[:udeda][:keyword].to_i.eql?(416)
         @udeda = Udeda.find_by(name: params[:name])
         redirect_to @udeda
        else

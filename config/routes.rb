@@ -5,7 +5,7 @@ Rails.application.routes.draw do
   end
 
   post '/serch/', to: 'udedas#serch'
-
+  get '/serch/', to: 'udedas#new'
   resources :keeps
   get '/stos/:id', to: 'stos#edit'
   patch '/stos/:id', to: 'stos#update'
