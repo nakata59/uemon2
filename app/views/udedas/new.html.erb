@@ -1,5 +1,5 @@
 <p id="alert"><%= alert %></p>
-
+<p>ユーザー登録</p>
 <%= form_with model: @udeda,local:true do |f| %>
     <%= f.label :name %>
     <%= f.text_field :name %>
@@ -9,7 +9,7 @@
     <%= f.submit "プレイヤー登録する" %>
 <% end %>
 
-
+<p>ユーザー検索</p>
 <%= form_with url: serch_url do |f| %>
     <%= f.label :name %>
     <%= f.text_field :name %>
