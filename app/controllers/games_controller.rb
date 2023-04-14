@@ -8,6 +8,14 @@ class GamesController < ApplicationController
     @chs = Ch.all
     @udeda = Udeda.find(params[:udeda_id])
     @sas = Keep.where(udeda_id: @udeda.id).order("id")
+    @jump = Game.where(flag: 1)
+    @jumpkouho = []
+    if @jump != nil
+      @jump.each do |j|
+        @jumpkouho.push(j.id)
+      end
+      @jumpsaki = @jumpkouho.select{|i| i > @game.id}.min
+    end   
   end
 
   def new

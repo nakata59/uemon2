@@ -241,6 +241,9 @@ a:hover{
 
 <% if @game.flag == 6 %>
  <h1>Thanks for playing</h1>
+ <% if @udeda.clear != nil %>
+   <h2>ShortStoryがアンロックされました</h2>
+ <% end %>
  <% request.url =~ %r|/games/| %>
  <a href = "<%= $` %>">タイトルへ戻る</a>
 <% else %>
@@ -248,6 +251,10 @@ a:hover{
 <div class = "window">
   <div class = "func">
     <p onclick="buttClick()">SAVE</p>
+    <% if @game.flag != 1 && @jumpsaki != nil %>
+    <% %r|/games/| =~ request.url %>
+    <a href = "<%= $` %>/games/<%= @jumpsaki%>" onclick="jumpClick()">JUMP</a>
+    <% end %>
     <%= audio_tag('sound.mp3', id: 'btn_audio') %>
     <p onclick="buttonClick10()">STATUS</p>
     <div class = "hide status">
@@ -338,6 +345,18 @@ a:hover{
    <% end %>
     </div>
   </a> 
+<% elsif @game.flag == 7 %>
+<% %r|/games/| =~ request.url %>
+<a href = "<%= $` %>/clear" class="dialogue">
+  <div class = "flowing" >
+    <% if /username/ ===  @game.body%>
+      <% @username_text = @game.body.gsub(/username/,@udeda.name) %>
+      <%= simple_format(@username_text) %>
+    <% else %>
+      <%= simple_format(@game.body) %>
+  </div>
+  </a>
+<% end %>
 <% else %>
 <% %r|/games/| =~ request.url %>
 <a href = "<%= $` %>/games/<%= next_id %>" class="dialogue">
@@ -419,5 +438,10 @@ function buttonClick10(){
   document.getElementById('btn_audio').play(); //クリックしたら音を再生
   elements[0].classList.toggle("hide");
   elements[0].classList.toggle("fade");
+}
+
+function jumpClick(){
+  document.getElementById('btn_audio').currentTime = 0; //連続クリックに対応
+  document.getElementById('btn_audio').play(); //クリックしたら音を再生
 }
 </script>

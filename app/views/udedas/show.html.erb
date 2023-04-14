@@ -39,6 +39,10 @@
   background: white;
   margin: 1vw;
 }
+
+a{
+  text-decoration: none;
+}
 </style>
 <div class = "window">
   <div class = "right">
@@ -56,7 +60,13 @@
     <p style = "color: white; font-size: 3vw;">Load</p>
     <%= audio_tag('sound.mp3', id: 'btn_audio') %>
   </div>
-
+  <% if @udeda.clear != nil %>
+    <div class = "Short">
+    <a href = "<%= request.url %>/rewards/1" onclick: "buttonClick()" %>
+      <p style = "color: white; font-size: 3vw;">Short Story</p>
+    </a>
+    </div>
+  <% end %>
 </div>
 <div class = "loadlist hide" >
   <div style = "position: absolute; left: 80vw;" onclick="button2Click()" >

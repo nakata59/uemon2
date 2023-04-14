@@ -64,6 +64,15 @@ class UdedasController < ApplicationController
       flash[:alert] = "入力情報に誤りがあります"
       render :new
    end
+
+  end
+
+  def clear
+    %r|/udedas/| =~ request.url
+    udeda_id = $'
+    @udeda = Udeda.find(udeda_id.to_i)
+    @udeda.update(clear: 1)
+    redirect_to "#{$`}/udedas/#{udeda_id.to_i}/games/#{Game.count}"
   end
   
   private

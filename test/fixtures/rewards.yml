@@ -1,0 +1,15 @@
+# Read about fixtures at https://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  body: MyString
+  flag: 1
+  next: 1
+  speaker: MyString
+  chra: 1
+
+two:
+  body: MyString
+  flag: 1
+  next: 1
+  speaker: MyString
+  chra: 1

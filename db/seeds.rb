@@ -523,7 +523,7 @@ Game.create!(
     },
     {
         body: "<span>彼は嬉しそうに笑い、私を抱きしめた。その温かさに包まれながら、心の中で幸せを噛みしめていた</span>",
-        flag: 0,
+        flag: 7,
         chra: 1,
         speaker: 2,
         id: 71
@@ -566,4 +566,129 @@ Ch.create!(
             next: 48
         }
     ]
+)
+
+Reward.create!(
+    [
+        {
+            body: "<span>急がないと</span>",
+            flag: 0,
+            speaker: 2,
+            id: 1
+        },
+        {
+            body: "<span>(今日は11月15日)</span>",
+            flag: 0,
+            speaker: 2,
+            id: 2
+        },
+        {
+            body: "<span>(私とカズキさんがお付き合いを初めてちょうど1年になる日だ</span>
+                   <span>私たちにとっては大切なこの日は待ち合わせをしていた)</span>",
+            flag: 0,
+            speaker: 2,
+            id: 3
+        },
+        {
+            body: "<span>「カズキさんもう着いてるかな？」</span>",
+            flag: 0,
+            speaker: 2,
+            id: 4
+        },
+        {
+            body: "<span>(電車の遅延により待ち合わせの時間ギリギリになってしまった)</span>",
+            flag: 0,
+            speaker: 2,
+            id: 5
+        },
+        {
+            body: "<span>「お待たせ!カズキさんっ!」</span>",
+            flag: 3,
+            speaker: 2,
+            chra: 1,
+            id: 6
+        },
+        {
+            body: "<span>「こんばんわ!username</span>
+                   <span>そんなに息乱してどうしたん？」</span>",
+            flag: 0,
+            speaker: 1,
+            chra: 1,
+            id: 7
+        },
+        {
+            body: "<span>「持たせてしまってごめんなさい」</span>",
+            flag: 0,
+            speaker: 2,
+            chra: 2,
+            id: 8
+        },
+        {
+            body: "<span>「それで走ってきたんか。気にせんでええのに</span>
+                   <span>電車の遅延やねんから、しゃあないで</span>
+                   <span>それに俺、usernameを待つ時間も嫌いじゃないし」</span>",
+            flag: 0,
+            speaker: 1,
+            chra: 2,
+            id: 9
+        },
+        {
+            body: "<span>「カズキさんたらまたそんなこと言う...」</span>",
+            flag: 0,
+            speaker: 2,
+            chra: 1,
+            id: 10
+        },
+        {
+            body: "<span>「usernameの反応がいちいち可愛いせいやで</span>
+                    <span>それにこういうこと言う僕のことも嫌いじゃないやろ?」</span>",
+            flag: 0,
+            speaker: 1,
+            chra: 1,
+            id: 11
+        },
+        {
+            body: "<span>「どうでしょう...秘密です</span>
+                    <span>ところで、今日はどこに行くの?行き先は任せてほしいってことだったけど」</span>",
+            flag: 0,
+            speaker: 2,
+            chra: 1,
+            id: 12
+        },
+        {
+            body: "<span>「そうやな、ひとつお願いやねんけど」</span>",
+            flag: 0,
+            speaker: 1,
+            chra: 1,
+            id: 13
+        },
+        {
+            body: "<span>「俺が言うまで目閉じといてくれるか？</span>
+                   <span>俺がリードするから」</span>",
+            flag: 0,
+            speaker: 1,
+            chra: 1,
+            id: 14
+        },
+        {
+            body: "<span>そう言ってカズキさんは私の手を引いた</span><br>
+                   <span>私は言われるまま目を閉じ、行き先を彼に委ねた</span>",
+            flag: 0,
+            speaker: 2,
+            chra: 1,
+            id: 15
+        },
+        {
+           body: "",
+            flag: 5,
+            id: 16
+        },
+        {
+           body: "",
+            flag: 6,
+            id: 17
+        }
+
+    ]
+
 )

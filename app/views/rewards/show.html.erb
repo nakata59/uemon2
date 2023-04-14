@@ -1,0 +1,459 @@
+<style>
+
+body{
+  margin: 0;
+}
+
+<% request.url =~ %r|rewards/| %>
+<% if $'.to_i < 16 %>
+.window{
+  position: relative;
+  background-image: url(<%= asset_path '0409.jpg' %>);
+  background-size: 100vw;
+  background-repeat: no-repeat;
+  width: 100vw;
+  height: 45vw;
+}
+
+<% else %>
+.window{
+  position: relative;
+  background-image: url(<%= asset_path '0408.jpg' %>);
+  background-size: 100vw;
+  background-repeat: no-repeat;
+  width: 100vw;
+  height: 45vw;
+}
+<% end %>
+
+ a {
+    text-decoration : none;
+    color : inherit;
+}
+a:hover{
+  text-decoration: none;
+  color : inherit;
+  background: rgba(161,208,231,0.9);
+}
+
+.flowing span:nth-of-type(1){
+  display: block;
+  height: 1rem;
+  
+  overflow: hidden;
+	animation: flowing-anim 3s forwards linear;
+}
+
+.flowing span:nth-of-type(2){
+  display: block;
+  height: 1rem;
+  width: 0;
+  overflow: hidden;
+	animation: flowing-anim 3s forwards linear;
+  animation-delay: 2s;
+}
+
+.flowing span:nth-of-type(3){
+  display: block;
+  height: 1rem;
+  width: 0;
+  overflow: hidden;
+	animation: flowing-anim 3s forwards linear;
+  animation-delay: 4s;
+}
+
+@keyframes flowing-anim {
+ 0%{
+	 width: 0%;
+   }
+100%{
+	 width: 100%;
+   }
+}
+
+
+
+.dialogue{
+  background: rgba(161,208,231,0.9);
+  width: 90vw;
+  height: 10vw;
+  position: absolute;
+  top: 33vw;
+  left: 0.5vw;
+  z-index: 100;
+}
+
+.parent{
+  position: absolute;
+  top: 13vw;
+}
+
+.choice{
+  background: rgba(161,208,231,0.9);
+  width: 30vw;
+  height: 3vw;
+  margin-bottom: 1vw;
+}
+
+.son{
+  background: rgba(161,208,231,0);
+  border: 0;
+  text-align: center;
+  width: 30vw;
+  height: 3vw;
+}
+
+.hide{
+  display: none
+}
+
+.func{
+  display: block;
+  background: rgba(161,208,231,0.9);
+  width: 6vw;
+  height: 10vw;
+  position: absolute;
+  left: 93vw;
+  top: 33vw;
+}
+
+<% if @reward.flag == 3 %>
+.curtain{
+  animation-name:transInAnime;
+  animation-fill-mode:forwards;
+  animation-duration:1.5s;
+  }
+
+  @keyframes transInAnime{
+    0% {width:0;}
+
+  60% {width:100vw;
+       opacity:1;}
+
+  70% {opacity:0;
+      width:100vw;
+      height:45vw;
+      display:none;}
+  
+  100% {width:0vw;
+        height:0vw;
+        opacity:0;}
+}
+
+
+.trans{
+  position: absolute;
+  top:0;
+  left: 0;
+  width: 100vw;
+  height: 45vw;
+  background-color: black;
+  z-index: 0;
+}
+
+<% end %>
+
+.fade{
+  animation-name:fadeInAnime;
+  animation-duration:0.5s;
+  animation-fill-mode:forwards;
+  opacity:0;
+  }
+
+  @keyframes fadeInAnime{
+    0% {opacity:0;}
+
+  100%{opacity:1;}
+}
+
+#back{
+  position: absolute;
+  left: 90vw;
+  top: 3vw;
+}
+
+.chara{
+  width: 70vw;
+  height: 30vw;
+  position: absolute;
+  left: 15vw;
+  top: 2vw;
+}
+
+.speaker{
+  background: rgba(161,208,231,0.9);
+  width: 10vw;
+  position: absolute;
+  top: 30vw;
+  left: 0.5vw
+}
+
+.filter{
+  filter: brightness(10%);
+}
+
+
+</style>
+<% if @reward.next.presence %>
+  <% next_id = @reward.next %>
+<% else %>
+  <% next_id = @reward.id + 1 %>
+<% end %>
+
+<% if @reward.flag == 6 %>
+ <h1>Thanks for playing</h1>
+ <% request.url =~ %r|/rewards/| %>
+ <a href = "<%= $` %>">タイトルへ戻る</a>
+
+<% elsif @reward.flag == 5 %>
+<div class = "speaker hide" id = "speaker1" style = "z-index:100;">
+  <%= @udeda.name %>
+</div>
+<div class = "speaker hide" id = "speaker2" style = "z-index:100;">
+  ウエダカズキ
+</div>
+  <div class= "dialogue" id = "daia1" onclick="dibuttonClick()"> 
+    <div class = "flowing">
+       <span>カズヤさんに連れられ歩くこと5分...</span>
+    </div>
+  </div>
+  <div class= "dialogue hide" id= "daia2" onclick="dibuttonClick2()"> 
+    <div class = "flowing">
+      <span>「目開けて」</span>
+    </div>
+  </div>
+  <div class = "window filter">
+  <%= audio_tag("reward1.mp3", id: 'btn_reward1') %>
+  <%= audio_tag("reward2.mp3", id: 'btn_reward2') %>
+  <%= audio_tag("reward3.mp3", id: 'btn_reward3') %>
+  <%= audio_tag("reward4.mp3", id: 'btn_reward4') %>
+  <%= audio_tag("reward5.mp3", id: 'btn_reward5') %>
+  <%= audio_tag("reward6.mp3", id: 'btn_reward6') %>
+  <% if @reward.chra == 1 %>
+  <div class = "chara", style = 'text-align: center;' >
+    <%= image_tag 'ueda1.png', style: 'height: 43vw;'  %>
+  </div>
+<% elsif @reward.chra == 2 %>
+  <div class = "chara", style = 'text-align: right;' >
+    <%= image_tag 'ueda3.png', style: 'height: 43vw;' %>
+  </div>
+<% else %>
+<% end %>
+
+<% case @reward.speaker %>
+  <% when "1" then %>
+    <div class = "speaker">
+      ウエダカズキ
+    </div>
+  <% when "2" then %>
+    <div class = "speaker">
+      <%= @udeda.name %>
+    </div>
+  <% when "0" then %>
+  <% else %>
+    <div class = "speaker">
+      <%= @reward.speaker %>
+    </div>
+<% end %>
+<div class = "chara", style = 'text-align: right;' >
+    <%= image_tag 'ueda3.png', style: 'height: 43vw;' %>
+</div>
+<div class= "dialogue hide" id= "daia3" onclick="dibuttonClick3()"> 
+  <div class = "flowing">
+    <span>目の前にはイルミネーションが広がっていた</span>
+  </div>
+</div>
+<div class= "dialogue hide" id= "daia4" onclick="dibuttonClick4()"> 
+  <div class = "flowing">
+    <span>「この景色を見せたかってん、喜んでくれたかな？」</span>
+  </div>
+</div>
+<div class= "dialogue hide" id= "daia5" onclick="dibuttonClick5()"> 
+  <div class = "flowing">
+      <span>「この一年ずいぶん情けないところも見せてもうたけど</span><br>
+      <span>お前がいてくれた頑張ってこれてん」</span>
+  </div>
+</div>
+<div class= "dialogue hide" id= "daia6" onclick="dibuttonClick6()"> 
+  <div class = "flowing">
+    <span>「やっぱ俺にはお前がいなあかんねん!誰にも渡したくないねん</span>
+    <span>これからも一緒にいてくれ」</span>
+  </div>
+</div>
+<% %r|/rewards/| =~ request.url %>
+<a href = "<%= $` %>/rewards/<%= @reward.id + 1 %>" class= "dialogue hide" id= "daia7" onclick="dibuttonClick7()"> 
+  <div class = "flowing">
+    <span>「すっとお前だけを愛している」</span>
+  </div>
+</a>
+
+<div class = "trans curtain">
+</div>
+<% else %>
+
+<div class = "window">
+  <% if @reward.chra == 1 %>
+  <div class = "chara", style = 'text-align: center;' >
+    <%= image_tag 'ueda1.png', style: 'height: 43vw;'  %>
+  </div>
+<% elsif @reward.chra == 2 %>
+  <div class = "chara", style = 'text-align: right;' >
+    <%= image_tag 'ueda3.png', style: 'height: 43vw;' %>
+  </div>
+<% else %>
+<% end %>
+
+<% case @reward.speaker %>
+  <% when "1" then %>
+    <div class = "speaker">
+      ウエダカズキ
+    </div>
+  <% when "2" then %>
+    <div class = "speaker">
+      <%= @udeda.name %>
+    </div>
+  <% when "0" then %>
+  <% else %>
+    <div class = "speaker">
+      <%= @reward.speaker %>
+    </div>
+<% end %>
+
+
+<% if @reward.flag == 1 %>
+<div class= "dialogue" onclick="buttonClick()"> 
+<div class = "flowing">
+<%= simple_format(@reward.body) %>
+</div>
+</div>
+<% elsif @reward.flag == 4 && @udeda.rate > 1 %>
+  <% %r|/rewards/| =~ request.url %>
+  <a href = "<%= $` %>/rewards/58" class="dialogue">
+  <div class = "flowing" >
+    <%= simple_format(@reward.body) %>
+  </div>
+  </a>
+<% elsif @reward.flag == 5 %>
+
+<% else %>
+<% %r|/rewards/| =~ request.url %>
+<a href = "<%= $` %>/rewards/<%= next_id %>" class="dialogue">
+<div class = "flowing">
+  <% if /username/ ===  @reward.body%>
+   <% @username_text = @reward.body.gsub(/username/,@udeda.name) %>
+   <%= simple_format(@username_text) %>
+  <% else %>
+    <%= simple_format(@reward.body) %>
+  <% end %>
+</div>
+</a>
+<% end %>
+
+</div>
+<div class = "trans curtain">
+</div>
+<% end %>
+<script>
+
+function buttonClick(){
+  let elements = document.getElementsByClassName("parent");
+  elements[0].classList.remove("hide");
+}
+
+function buttoClick(){
+  let elements = document.getElementsByClassName("func");
+  elements[0].classList.toggle("hide");
+}
+
+function buttClick(){
+  let elements = document.getElementsByClassName("savelist");
+  document.getElementById('btn_audio').currentTime = 0; //連続クリックに対応
+  document.getElementById('btn_audio').play(); //クリックしたら音を再生
+  elements[0].classList.toggle("hide");
+  elements[0].classList.toggle("fade");
+}
+
+function button8Click(){
+  let elements = document.getElementsByClassName("savelist");
+  document.getElementById('btn_audio2').currentTime = 0; //連続クリックに対応
+  document.getElementById('btn_audio2').play(); //クリックしたら音を再生
+  elements[0].classList.add("hide");
+  elements[0].classList.remove("fade");
+}
+
+function button9Click(){
+  let elements = document.getElementsByClassName("afterbox");
+  document.getElementById('btn_audio3').currentTime = 0; //連続クリックに対応
+  document.getElementById('btn_audio3').play(); //クリックしたら音を再生
+  elements[0].classList.remove("hide");
+  
+}
+
+function buttonClick10(){
+  let elements = document.getElementsByClassName("status");
+  document.getElementById('btn_audio').currentTime = 0; //連続クリックに対応
+  document.getElementById('btn_audio').play(); //クリックしたら音を再生
+  elements[0].classList.toggle("hide");
+  elements[0].classList.toggle("fade");
+}
+
+function dibuttonClick(){
+  let element = document.getElementById('daia2');
+  element.classList.remove("hide");
+  let element1 = document.getElementById('daia1');
+  element1.classList.add("hide");
+  document.getElementById('btn_reward1').currentTime = 0; //連続クリックに対応
+  document.getElementById('btn_reward1').play(); //クリックしたら音を再生
+  let element2 = document.getElementById('speaker2');
+  element2.classList.remove("hide");
+}
+
+
+function dibuttonClick2(){
+  let elements = document.getElementsByClassName("window");
+  elements[0].classList.remove("filter");
+  let element = document.getElementById('daia3');
+  element.classList.remove("hide");
+  element.classList.add("unfil");
+  let element1 = document.getElementById('daia2');
+  element1.classList.add("hide");
+  document.getElementById('btn_reward2').currentTime = 0; //連続クリックに対応
+  document.getElementById('btn_reward2').play(); //クリックしたら音を再生
+}
+
+function dibuttonClick3(){
+  let element = document.getElementById('daia4');
+  element.classList.remove("hide");
+  let element1 = document.getElementById('daia3');
+  element1.classList.add("hide");
+  document.getElementById('btn_reward3').currentTime = 0; //連続クリックに対応
+  document.getElementById('btn_reward3').play(); //クリックしたら音を再生
+}
+
+function dibuttonClick4(){
+  let element = document.getElementById('daia5');
+  element.classList.remove("hide");
+  let element1 = document.getElementById('daia4');
+  element1.classList.add("hide");
+  document.getElementById('btn_reward4').currentTime = 0; //連続クリックに対応
+  document.getElementById('btn_reward4').play(); //クリックしたら音を再生
+}
+
+function dibuttonClick5(){
+  let element = document.getElementById('daia6');
+  element.classList.remove("hide");
+  let element1 = document.getElementById('daia5');
+  element1.classList.add("hide");
+  document.getElementById('btn_reward5').currentTime = 0; //連続クリックに対応
+  document.getElementById('btn_reward5').play(); //クリックしたら音を再生
+}
+
+function dibuttonClick6(){
+  let element = document.getElementById('daia7');
+  element.classList.remove("hide");
+  let element1 = document.getElementById('daia6');
+  element1.classList.add("hide");
+  document.getElementById('btn_reward6').currentTime = 0; //連続クリックに対応
+  document.getElementById('btn_reward6').play(); //クリックしたら音を再生
+}
+</script>
